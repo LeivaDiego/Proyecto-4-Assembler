@@ -1,0 +1,46 @@
+﻿Logica proyecto assembler
+
+
+Variables
+Array con pastor, cabra, lobo, lechuga [0,0,0,0]
+0 Indica que esta en la izquierda
+1 indica que esta en la derecha
+
+
+Posiciones del array
+0 -> Pastor
+1-> Cabra
+2-> Lobo
+3-> Lechuga
+
+
+
+
+Funciones
+
+
+Es número (isnumber): valida si el input es un integer, sino vuelve a preguntar
+
+
+Está en rango inicio (inRangeStart): Válida si el número ingresado es 1,2 o 3.
+
+
+Está en rango movimiento iz-der (inRangeIzDer): Válida si el número ingresado está en las opciones disponibles para moverse de izquierda a derecha.
+
+
+Está en rango movimiento der-iz (inRangeDerIz): Valida si el número ingresado esta en las opciones disponibles para moverse de derecha a izquierda
+
+
+Estado Actual (showState): Muestra en pantalla el estado actual del juego
+
+
+Movimiento hecho (moveDone): Muestra en pantalla el movimiento que acaba de realizar el jugador.
+
+
+Ganó perdió (winlose): Válida si el array cumple la condición para ganar, o si está en un estado que indica que perdió.
+
+
+Ganador (win): Muestra en pantalla que el jugador ganó
+
+
+Perdedor (lo se): Muestra en pantalla que el jugador perdió
