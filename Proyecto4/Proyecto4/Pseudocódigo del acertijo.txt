@@ -1,0 +1,21 @@
+Pseudocódigo del acertijo
+
+INICIO
+
+Crear variables para lobo, cabra y lechuga en orilla inicial (1 = presente, 0 = ausente)
+Crear variables para lobo, cabra y lechuga en orilla final (1 = presente, 0 = ausente)
+Crear variable para el pastor en orilla inicial (1 = presente, 0 = ausente)
+Crear variable para el pastor en orilla final (1 = presente, 0 = ausente)
+
+LOOP DE JUEGO
+
+Mostrar estado actual del juego
+Pedir al usuario que seleccione un objeto (lobo, cabra, lechuga) para mover
+Si el usuario selecciona un objeto que no está en la misma orilla que el pastor, mostrar mensaje de error y volver al inicio del loop de juego
+Si el usuario selecciona un objeto que está en la misma orilla que el pastor, mover el objeto y el pastor a la otra orilla
+Comprobar si el lobo y la cabra están solos en la misma orilla sin el pastor (lobo = 1, cabra = 1, pastor = 0), si es así, mostrar mensaje de que el lobo se ha comido a la cabra y terminar el juego
+Comprobar si la cabra y la lechuga están solas en la misma orilla sin el pastor (cabra = 1, lechuga = 1, pastor = 0), si es así, mostrar mensaje de que la cabra se ha comido la lechuga y terminar el juego
+Comprobar si todas las variables en la orilla final son 1 (lobo = 1, cabra = 1, lechuga = 1, pastor = 1), si es así, mostrar mensaje de felicitación y terminar el juego
+Volver al inicio del loop de juego
+
+FIN
