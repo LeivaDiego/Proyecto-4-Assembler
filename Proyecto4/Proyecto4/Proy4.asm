@@ -108,7 +108,7 @@ message11		BYTE	"|                                     3) Lechuga               
 
 
 message12		BYTE	"|                   Ingresa el numero 1 para iniciar con el juego:", 0
-message13		BYTE	"|                        Ingreso un numero que no es valido                         ", 0Ah, 0
+errormsg1		BYTE	"|                        Ingreso un numero que no es valido                         ", 0Ah, 0
 pru     		BYTE	"                                       Prueba                                       ", 0Ah, 0
 
 
@@ -165,24 +165,11 @@ main proc
     invoke printf, addr separator
 
 
-    sub esp, 4	
-    push offset select
-    call printf
+   call inRangeStart
+   mov Inicio1, eax
 
-    lea eax, [ebp - 4]			;Obtenemos la dirección donde se guardara el numero ingresado
-    push eax					;Se da la dirección donde se guardara el dato
-    push offset dato1    		;Dato a ingresar
-    call scanf
-
-    mov eax, [ebp - 4]		    ;Movemos el dato ingresado al registro
-    mov Inicio1, eax			;Movemos el dato a la variable Inicio1
-
-
-
-   
 	.IF Inicio1 == 1 
 		;Programar Juego
-
 
 
 	.ELSEIF Inicio1 == 2 
@@ -198,8 +185,6 @@ main proc
         invoke printf, addr message6
         invoke printf, addr message7
 
-        
-
 
 
 	.ELSEIF Inicio1 == 3   
@@ -212,7 +197,7 @@ main proc
     .ELSE
         invoke printf, addr space
         invoke printf, addr separator
-        invoke printf, addr message13
+        invoke printf, addr errormsg1
         invoke printf, addr separator
         
 
@@ -228,7 +213,7 @@ main endp
 ;------------------------------------------------------------
 
 
-loser proc   
+loser proc                      ;Creador: Pablo Orellana Muestra mensaje de derrota
     invoke printf, addr space
     invoke printf, addr separator
     invoke printf, addr lose1
@@ -243,7 +228,7 @@ loser proc
     ret
 loser endp 
 
-winer proc   
+winer proc                      ;Creador: Pablo Orellana Muestra mensaje de victoria
     invoke printf, addr space
     invoke printf, addr separator
     invoke printf, addr win1
@@ -255,6 +240,50 @@ winer proc
     invoke printf, addr win7
     invoke printf, addr separator
     ret
-winer endp 
+winer endp
+
+
+inRangeStart proc               ;Creador: Diego Leiva Valida si un numero esta entre 1,2 o 3 y sino lo vuleve a pedir
+    asknum:                     ;Imprime el mensaje de seleccion de dato
+    sub esp, 4	
+    push offset select
+    call printf
+
+    lea eax, [ebp - 4]			;Obtenemos la dirección donde se guardara el numero ingresado
+    push eax					;Se da la dirección donde se guardara el dato
+    push offset dato1    		;Dato a ingresar
+    call scanf
+
+    mov eax, [ebp - 4]		    ;Movemos el dato ingresado al registro
+    mov Inicio1, eax			;Movemos el dato a la variable Inicio1
+
+    mov eax, Inicio1            ;Mueve el valor de Inicio1 al registro
+    mov ebx, 1                  ;asigna el valor de 1 al registro b
+    cmp eax, ebx                ;compara ambos registros
+    jne notone                  ;si no es igual hace un salto a notone
+    je endl                     ;si es igual hace un salto al final *validado*
+
+    notone:                     
+    mov ebx, 2                  ;asgina el valor de 2 al registro b
+    cmp eax,ebx                 ;compara ambos registros
+    jne nottwo                 ;si no es igual hace un salto a nottwo
+    je endl                     ;si es igual hace un salto al final *validado*
+
+    nottwo:
+    mov ebx, 3                  ;asigna el valor de 3 al registo b
+    cmp eax,ebx                 ;compara ambos registros
+    jne throwError                  ;si no es igual hace un salto al inicio para volver a pedir el numero
+    je endl                     ;si es igual hace un salto al final *validado*
+
+    throwError:
+    invoke printf, addr errormsg1
+    cmp eax,ebx
+    jne asknum
+
+
+    endl:
+    mov Inicio1, eax
+    ret
+inRangeStart endp
 
 end
