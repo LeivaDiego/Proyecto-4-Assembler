@@ -85,7 +85,7 @@ welcome		BYTE	"|               Bienvenido al acertijo del lobo la obeja y la lec
 
 home        BYTE    "|                                  MENU PRINCIPAL                                   |", 0Ah, 0
 
-select      BYTE    "|                              Selecciona una opcion: ", 0
+select      BYTE    "                               Selecciona una opcion: ", 0
 
 mainmenu1   BYTE    "|                              (1.) Iniciar el juego                                |", 0Ah, 0
 mainmenu2   BYTE    "|                              (2.) Ver Instrucciones                               |", 0Ah, 0
@@ -94,22 +94,20 @@ mainmenu3   BYTE    "|                              (3.) Salir del juego        
 finish      BYTE    "|                               EL JUEGO HA TERMINADO                               |", 0Ah, 0
 
 
-message1		BYTE	"|               Bienvenido al acertijo del lobo la obeja y la lechuga               |", 0Ah, 0
-message2		BYTE	"|                    Aqui podras ver las instrucciones del juego                    |", 0Ah, 0
-message3		BYTE	"|  Un pastor tiene que atravesar a la otra orilla de un rio con un lobo, una oveja  |", 0Ah, 0
-message4		BYTE	"|   y una lechuga Dispone de una barca en la que solo caben el y una de las otras   |", 0Ah, 0
-message5		BYTE	"|  Si el lobo se queda solo con la cabra se la come, si la cabra se queda sola con  |", 0Ah, 0
-message6		BYTE	"|                              la lechuga se la come.                               |", 0Ah, 0
-message7		BYTE	"|                                COMO DEBE HACERLO?                                 |", 0Ah, 0
-message8		BYTE	"|    A continuacion debera ingresar, cual sera el primer objeto en cruzar el rio    |", 0Ah, 0
-message9		BYTE	"|                                     1) Lobo                                       |", 0Ah, 0
-message10		BYTE	"|                                     2) Oveja                                      |", 0Ah, 0
-message11		BYTE	"|                                     3) Lechuga                                    |", 0Ah, 0
+instructions1	BYTE	"|                    Aqui podras ver las instrucciones del juego                    |", 0Ah, 0
+instructions2	BYTE	"|  Un pastor tiene que atravesar a la otra orilla de un rio con un lobo, una oveja  |", 0Ah, 0
+instructions3	BYTE	"|   y una lechuga Dispone de una barca en la que solo caben el y una de las otras   |", 0Ah, 0
+instructions4	BYTE	"|  Si el lobo se queda solo con la cabra se la come, si la cabra se queda sola con  |", 0Ah, 0
+instructions5	BYTE	"|                              la lechuga se la come.                               |", 0Ah, 0
+instructions6	BYTE	"|                                COMO DEBE HACERLO?                                 |", 0Ah, 0
+instructions7	BYTE	"|    A continuacion debera ingresar, cual sera el primer objeto en cruzar el rio    |", 0Ah, 0
+wolfopt		    BYTE	"|                                     1) Lobo                                       |", 0Ah, 0
+sheepopt		BYTE	"|                                     2) Oveja                                      |", 0Ah, 0
+lettuceopt		BYTE	"|                                     3) Lechuga                                    |", 0Ah, 0
 
 
-message12		BYTE	"|                   Ingresa el numero 1 para iniciar con el juego:", 0
-errormsg1		BYTE	"|                        Ingreso un numero que no es valido                         ", 0Ah, 0
-pru     		BYTE	"                                       Prueba                                       ", 0Ah, 0
+message12		BYTE	"|                   Ingresa el numero 1 para iniciar con el juego:                  |", 0
+errormsg1		BYTE	"|                        Ingresaste un número que no es valido                      |", 0Ah, 0
 
 
 dato1   db "%d", 0
@@ -174,16 +172,22 @@ main proc
 
 	.ELSEIF Inicio1 == 2 
 		;Instrucciones
+        invoke printf, addr separator
+        invoke printf, addr space
+        invoke printf, addr instructions1
+        invoke printf, addr space
+        invoke printf, addr instructions2
+        invoke printf, addr instructions3
+        invoke printf, addr instructions4
+        invoke printf, addr instructions5
+        invoke printf, addr instructions6
+        invoke printf, addr instructions7
+        invoke printf, addr space
+        invoke printf, addr wolfopt
+        invoke printf, addr sheepopt
+        invoke printf, addr lettuceopt
         invoke printf, addr space
         invoke printf, addr separator
-        invoke printf, addr message1
-        invoke printf, addr message2
-        invoke printf, addr separator
-        invoke printf, addr message3
-        invoke printf, addr message4
-        invoke printf, addr message5
-        invoke printf, addr message6
-        invoke printf, addr message7
 
 
 
@@ -212,6 +216,9 @@ main endp
 ;                         SUB RUTINAS
 ;------------------------------------------------------------
 
+dummy proc
+    ret
+dummy endp
 
 loser proc                      ;Creador: Pablo Orellana Muestra mensaje de derrota
     invoke printf, addr space
@@ -243,47 +250,37 @@ winer proc                      ;Creador: Pablo Orellana Muestra mensaje de vict
 winer endp
 
 
-inRangeStart proc               ;Creador: Diego Leiva Valida si un numero esta entre 1,2 o 3 y sino lo vuleve a pedir
-    asknum:                     ;Imprime el mensaje de seleccion de dato
-    sub esp, 4	
-    push offset select
-    call printf
+inRangeStart proc                   ;Creador: Diego Leiva Valida si un numero esta entre 1,2 o 3 y sino lo vuleve a pedir
+    asknum:                         ; Define la etiqueta "asknum" (inicio del bucle)
+    sub esp, 4                      ; Reduce la pila en 4 bytes para alojar el valor ingresado.
+    push offset select              ; Empuja la dirección del mensaje "select" a la pila para printf.
+    call printf                     ; Llama a la función printf para imprimir el mensaje de solicitud.
+    add esp, 8                      ; Aumenta la pila en 8 bytes, limpiando la dirección del mensaje y el valor anterior.
 
-    lea eax, [ebp - 4]			;Obtenemos la dirección donde se guardara el numero ingresado
-    push eax					;Se da la dirección donde se guardara el dato
-    push offset dato1    		;Dato a ingresar
-    call scanf
+    lea eax, [ebp - 4]              ; Carga la dirección de la variable local en eax.
+    push eax                        ; Empuja la dirección de la variable local a la pila para scanf.
+    push offset dato1               ; Empuja la dirección del formato de entrada a la pila para scanf.
+    call scanf                      ; Llama a la función scanf para leer el valor de entrada.
+    add esp, 8                      ; Aumenta la pila en 8 bytes, limpiando las direcciones de la pila.
 
-    mov eax, [ebp - 4]		    ;Movemos el dato ingresado al registro
-    mov Inicio1, eax			;Movemos el dato a la variable Inicio1
+    mov eax, [ebp - 4]              ; Mueve el valor de entrada a eax.
+    mov Inicio1, eax                ; Guarda el valor de entrada en Inicio1.
 
-    mov eax, Inicio1            ;Mueve el valor de Inicio1 al registro
-    mov ebx, 1                  ;asigna el valor de 1 al registro b
-    cmp eax, ebx                ;compara ambos registros
-    jne notone                  ;si no es igual hace un salto a notone
-    je endl                     ;si es igual hace un salto al final *validado*
+    mov eax, Inicio1                ; Carga el valor de Inicio1 en eax.
+    cmp eax, 1                      ; Compara el valor de eax con 1.
+    je valid                        ; Si eax es igual a 1, salta a la etiqueta "valid".
+    cmp eax, 2                      ; Si no, compara el valor de eax con 2.
+    je valid                        ; Si eax es igual a 2, salta a la etiqueta "valid".
+    cmp eax, 3                      ; Si no, compara el valor de eax con 3.
+    je valid                        ; Si eax es igual a 3, salta a la etiqueta "valid".
 
-    notone:                     
-    mov ebx, 2                  ;asgina el valor de 2 al registro b
-    cmp eax,ebx                 ;compara ambos registros
-    jne nottwo                 ;si no es igual hace un salto a nottwo
-    je endl                     ;si es igual hace un salto al final *validado*
+    invoke printf, addr errormsg1   ; Si no es igual a ninguno, imprime el mensaje de error.
+    jmp asknum                      ; Y luego salta a "asknum" para pedir otro valor.
 
-    nottwo:
-    mov ebx, 3                  ;asigna el valor de 3 al registo b
-    cmp eax,ebx                 ;compara ambos registros
-    jne throwError                  ;si no es igual hace un salto al inicio para volver a pedir el numero
-    je endl                     ;si es igual hace un salto al final *validado*
+    valid:                          ; Define la etiqueta "valid" (salto si el valor de entrada es válido).
+    mov Inicio1, eax                ; Guarda el valor de entrada en Inicio1.
+    ret                             ; Regresa al código que llamó a esta subrutina.
 
-    throwError:
-    invoke printf, addr errormsg1
-    cmp eax,ebx
-    jne asknum
-
-
-    endl:
-    mov Inicio1, eax
-    ret
 inRangeStart endp
 
 end
