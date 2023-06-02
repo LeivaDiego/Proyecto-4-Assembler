@@ -129,10 +129,12 @@ dato1   db "%d", 0
 Inicio1 dd 0
 movida dd 0
 
-wolf    DWORD   1
-sheep   DWORD   0
-lettuce DWORD   0
-pastor  DWORD   1
+wolf    DWORD   1 ;lado del lobo
+sheep   DWORD   1 ;lado de la oveja
+lettuce DWORD   1 ;lado de la lechuga
+pastor  DWORD   1 ;lado del pastop
+
+game    DWORD   2 ;ya ganamos?
 
 
 .code
@@ -184,14 +186,16 @@ main proc
     invoke printf, addr space
     invoke printf, addr separator
 
+    call winlose
 
-   call inRangeStart
-   mov Inicio1, eax
+    call inRangeStart
+    mov Inicio1, eax
 
 	.IF Inicio1 == 1 
 		;Programar Juego
         call actualstate
         call wherePastor
+        
 
 
 	.ELSEIF Inicio1 == 2 
@@ -244,6 +248,8 @@ dummy proc
     ret
 dummy endp
 
+;-----------------------------------------------------------------------------------------------------------------------
+
 loser proc                      ;Creador: Pablo Orellana Muestra mensaje de derrota
     invoke printf, addr space
     invoke printf, addr separator
@@ -259,6 +265,8 @@ loser proc                      ;Creador: Pablo Orellana Muestra mensaje de derr
     ret
 loser endp 
 
+;-----------------------------------------------------------------------------------------------------------------------
+
 winer proc                      ;Creador: Pablo Orellana Muestra mensaje de victoria
     invoke printf, addr space
     invoke printf, addr separator
@@ -273,6 +281,7 @@ winer proc                      ;Creador: Pablo Orellana Muestra mensaje de vict
     ret
 winer endp
 
+;-----------------------------------------------------------------------------------------------------------------------
 
 inRangeStart proc                   ;Creador: Diego Leiva Valida si un numero esta entre 1,2 o 3 y sino lo vuleve a pedir
     asknum:                         ; Define la etiqueta "asknum" (inicio del bucle)
@@ -307,7 +316,7 @@ inRangeStart proc                   ;Creador: Diego Leiva Valida si un numero es
 
 inRangeStart endp
 
-
+;-----------------------------------------------------------------------------------------------------------------------
 
 actualstate proc                        ; Creador: Pablo Orellana Mostrar estado actual del juego
     invoke printf, addr separator
@@ -379,6 +388,7 @@ actualstate proc                        ; Creador: Pablo Orellana Mostrar estado
     ret
 actualstate endp
 
+;-----------------------------------------------------------------------------------------------------------------------
 
 wherePastor proc
     .IF pastor == 0 
@@ -398,7 +408,7 @@ wherePastor proc
     ret
 wherePastor endp
 
-
+;-----------------------------------------------------------------------------------------------------------------------
 
 leftOptions proc                         ;Creador: Diego Leiva Muestra al usuario lo que puede mover de izquierda a derecha
     invoke printf, addr leftoption
@@ -419,6 +429,7 @@ leftOptions proc                         ;Creador: Diego Leiva Muestra al usuari
     ret
 leftOptions endp
 
+;-----------------------------------------------------------------------------------------------------------------------
 
 rightOptions proc                        ;Creador: Diego Leiva Muestra al usuario lo que puede mover de derecha a izquierda
     invoke printf, addr rightoption
@@ -440,6 +451,8 @@ rightOptions proc                        ;Creador: Diego Leiva Muestra al usuari
     
     ret
 rightOptions endp
+
+;-----------------------------------------------------------------------------------------------------------------------
 
 questionleft proc
     askopt:
@@ -465,7 +478,6 @@ questionleft proc
     je sheeps                       ; Si eax es igual a 2, salta a la etiqueta "valid".
     cmp eax, 3                      ; Si no, compara el valor de eax con 3.
     je lettuces
-
 
     sheeps:
     .IF sheep == 1
@@ -501,7 +513,7 @@ questionleft proc
     ret
 questionleft endp
 
-
+;-----------------------------------------------------------------------------------------------------------------------
 
 questionright proc
     askopt:
@@ -565,5 +577,55 @@ questionright proc
     ret
 questionright endp
 
+;-----------------------------------------------------------------------------------------------------------------------
+
+winlose proc                    ;Creador Diego Leiva Subrutina que berifica si el jugador gano o perdio luego de hacer su movimiento
+                        
+    .IF sheep == 0              ;si oveja y lobo juntos en izquierda y pastor en derecha
+        .IF wolf == 0 
+            .IF pastor == 1
+                mov game, 0
+                call loser
+            .ENDIF
+        .ENDIF
+    .ENDIF
+
+    .IF sheep == 1              ;si oveja y lobo juntos en derecha y pastor en izquierda
+        .IF wolf == 1 
+            .IF pastor == 0
+                mov game, 0
+                call loser
+            .ENDIF
+        .ENDIF
+    .ENDIF
+
+    .IF sheep == 0              ;si oveja y lechuga juntos en izquierda y pastor en derecha
+        .IF lettuce == 0 
+            .IF pastor == 1
+                mov game, 0
+                call loser
+            .ENDIF
+        .ENDIF
+    .ENDIF
+
+    .IF sheep == 1              ;si oveja y lechuga juntos en derecha y pastor en izquierda
+        .IF lettuce == 1 
+            .IF pastor == 0
+                mov game, 0
+                call loser
+            .ENDIF
+        .ENDIF
+    .ENDIF
+
+    .IF sheep == 1              ;si los 3 objetos estan en la derecha se gana
+        .IF wolf == 1
+            .IF lettuce == 1
+                mov game, 1
+                call winer
+            .ENDIF
+        .ENDIF 
+    .ENDIF
+
+winlose endp
 
 end
