@@ -129,7 +129,7 @@ Inicio1 dd 0
 
 wolf    DWORD   0
 sheep   DWORD   0
-lettuce DWORD   1
+lettuce DWORD   0
 pastor  DWORD   0
 
 
@@ -382,18 +382,20 @@ wherePastor proc
     .IF pastor == 0 
 		;el pastor esta en la izquierda
         call leftOptions
+        invoke printf, addr select
     .ENDIF
 
 	.IF pastor == 1
         ;el pastor esta en la derecha
         call rightOptions
+        invoke printf, addr select
 	.ENDIF
     ret
 wherePastor endp
 
 
 
-leftOptions proc        ;Creador: Diego Leiva Muestra al usuario lo que puede mover de izquierda a derecha
+leftOptions proc                         ;Creador: Diego Leiva Muestra al usuario lo que puede mover de izquierda a derecha
     invoke printf, addr leftoption
     invoke printf, addr space
 
@@ -413,7 +415,7 @@ leftOptions proc        ;Creador: Diego Leiva Muestra al usuario lo que puede mo
 leftOptions endp
 
 
-rightOptions proc
+rightOptions proc                        ;Creador: Diego Leiva Muestra al usuario lo que puede mover de derecha a izquierda
     invoke printf, addr rightoption
     invoke printf, addr space
 
@@ -428,6 +430,8 @@ rightOptions proc
     .IF  lettuce == 1
         invoke printf, addr lettuceopt
     .ENDIF
+
+    invoke printf, addr aloneopt
     
     ret
 rightOptions endp
