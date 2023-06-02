@@ -11,7 +11,6 @@
 ;| la lechuga se la come. ¿Cómo debe hacerlo?                           |
 ;|----------------------------------------------------------------------|
 
-
 .386
 .model flat, stdcall, c
 .stack 4096
@@ -678,7 +677,5 @@ movidasright proc           ;Creador Diego Leiva Movida del pastor con o sin obj
     mov pastor, 0
     ret
 movidasright endp
-
-
 
 end
