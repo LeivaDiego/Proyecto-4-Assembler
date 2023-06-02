@@ -28,106 +28,102 @@ scanf  proto c : vararg
 
 .data
 
-separator	BYTE	"|===================================================================================|", 0Ah, 0
+separator	BYTE	  "|===================================================================================|", 0Ah, 0
 
-space		BYTE	"|                                                                                   |", 0Ah, 0
+space		BYTE	  "|                                                                                   |", 0Ah, 0
 
+title0		BYTE	  "|                     _____ ______ _____ _______ _____     _  ____                  |", 0Ah, 0
+title1		BYTE	  "|               /\   / ____|  ____|  __ \__   __|_   _|   | |/ __ \                 |", 0Ah, 0
+title2		BYTE	  "|              /  \ | |    | |__  | |__) | | |    | |     | | |  | |                |", 0Ah, 0
+title3		BYTE	  "|             / /\ \| |    |  __| |  _  /  | |    | | _   | | |  | |                |", 0Ah, 0
+title4		BYTE	  "|            / ____ \ |____| |____| | \ \  | |   _| || |__| | |__| |                |", 0Ah, 0
+title5		BYTE	  "|           /_/    \_\_____|______|_|  \_\ |_|  |_____\____/ \____/                 |", 0Ah, 0
 
-title0		BYTE	"|                     _____ ______ _____ _______ _____     _  ____                  |", 0Ah, 0
-title1		BYTE	"|               /\   / ____|  ____|  __ \__   __|_   _|   | |/ __ \                 |", 0Ah, 0
-title2		BYTE	"|              /  \ | |    | |__  | |__) | | |    | |     | | |  | |                |", 0Ah, 0
-title3		BYTE	"|             / /\ \| |    |  __| |  _  /  | |    | | _   | | |  | |                |", 0Ah, 0
-title4		BYTE	"|            / ____ \ |____| |____| | \ \  | |   _| || |__| | |__| |                |", 0Ah, 0
-title5		BYTE	"|           /_/    \_\_____|______|_|  \_\ |_|  |_____\____/ \____/                 |", 0Ah, 0
-
-
-title6      BYTE    "|         _____  ______ _         _____         _____ _______ ____  _____           |", 0Ah, 0
-title7      BYTE    "|        |  __ \|  ____| |       |  __ \ /\    / ____|__   __/ __ \|  __ \          |", 0Ah, 0
-title8      BYTE    "|        | |  | | |__  | |       | |__) /  \  | (___    | | | |  | | |__) |         |", 0Ah, 0
-title9      BYTE    "|        | |  | |  __| | |       |  ___/ /\ \  \___ \   | | | |  | |  _  /          |", 0Ah, 0
-title10     BYTE    "|        | |__| | |____| |____   | |  / ____ \ ____) |  | | | |__| | | \ \          |", 0Ah, 0
-title11     BYTE    "|        |_____/|______|______|  |_| /_/    \_\_____/   |_|  \____/|_|  \_\         |", 0Ah, 0
+title6      BYTE      "|         _____  ______ _         _____         _____ _______ ____  _____           |", 0Ah, 0
+title7      BYTE      "|        |  __ \|  ____| |       |  __ \ /\    / ____|__   __/ __ \|  __ \          |", 0Ah, 0
+title8      BYTE      "|        | |  | | |__  | |       | |__) /  \  | (___    | | | |  | | |__) |         |", 0Ah, 0
+title9      BYTE      "|        | |  | |  __| | |       |  ___/ /\ \  \___ \   | | | |  | |  _  /          |", 0Ah, 0
+title10     BYTE      "|        | |__| | |____| |____   | |  / ____ \ ____) |  | | | |__| | | \ \          |", 0Ah, 0
+title11     BYTE      "|        |_____/|______|______|  |_| /_/    \_\_____/   |_|  \____/|_|  \_\         |", 0Ah, 0
 
 
-logo0		BYTE	"|           / \      _-'                  __  _                      _ _            |", 0Ah, 0
-logo1		BYTE	"|         _/|  \-''- _ /               .-:'  `; `-._              .-( : )-.         |", 0Ah, 0
-logo2		BYTE	"|    __-' { |          \              (_,           )            (   \'/   )        |", 0Ah, 0
-logo3		BYTE	"|        /             \            ,'o''(           )>         ( `'.;;;.'` )       |", 0Ah, 0
-logo4		BYTE	"|        /      ''o.  |o }         (__,-'            )         ( :-=;;;;;=-: )      |", 0Ah, 0
-logo5		BYTE	"|        |            \ ;             (             )           (  .';;;'.  )       |", 0Ah, 0
-logo6		BYTE	"|                      ',              `-'._.--._.-'             (`  /.\  `)        |", 0Ah, 0
-logo7		BYTE	"|           \_         __\                |||  |||                '-(_:_)-'         |", 0Ah, 0
-logo8		BYTE	"|             ''-_    \.//                                                          |", 0Ah, 0
-logo9		BYTE	"|               / '-____'                                                           |", 0Ah, 0
-logo10		BYTE	"|              /                                                                    |", 0Ah, 0
+logo0		BYTE	  "|           / \      _-'                  __  _                      _ _            |", 0Ah, 0
+logo1		BYTE	  "|         _/|  \-''- _ /               .-:'  `; `-._              .-( : )-.         |", 0Ah, 0
+logo2		BYTE	  "|    __-' { |          \              (_,           )            (   \'/   )        |", 0Ah, 0
+logo3		BYTE	  "|        /             \            ,'o''(           )>         ( `'.;;;.'` )       |", 0Ah, 0
+logo4		BYTE	  "|        /      ''o.  |o }         (__,-'            )         ( :-=;;;;;=-: )      |", 0Ah, 0
+logo5		BYTE	  "|        |            \ ;             (             )           (  .';;;'.  )       |", 0Ah, 0
+logo6		BYTE	  "|                      ',              `-'._.--._.-'             (`  /.\  `)        |", 0Ah, 0
+logo7		BYTE	  "|           \_         __\                |||  |||                '-(_:_)-'         |", 0Ah, 0
+logo8		BYTE      "|             ''-_    \.//                                                          |", 0Ah, 0
+logo9		BYTE	  "|               / '-____'                                                           |", 0Ah, 0
+logo10		BYTE	  "|              /                                                                    |", 0Ah, 0
 
 
-lose1       BYTE    "|          __     ______  _    _     _      ____   _____ ______         __          |", 0Ah, 0
-lose2       BYTE    "|          \ \   / / __ \| |  | |   | |    / __ \ / ____|  ____|   _   / /          |", 0Ah, 0
-lose3       BYTE    "|           \ \_/ / |  | | |  | |   | |   | |  | | (___ | |__     (_) | |           |", 0Ah, 0
-lose4       BYTE    "|            \   /| |  | | |  | |   | |   | |  | |\___ \|  __|        | |           |", 0Ah, 0
-lose5       BYTE    "|             | | | |__| | |__| |   | |___| |__| |____) | |____    _  | |           |", 0Ah, 0
-lose6       BYTE    "|             |_|  \____/ \____/    |______\____/|_____/|______|  (_) | |           |", 0Ah, 0
-lose7       BYTE    "|                                                                      \_\          |", 0Ah, 0
+lose1       BYTE      "|          __     ______  _    _     _      ____   _____ ______         __          |", 0Ah, 0
+lose2       BYTE      "|          \ \   / / __ \| |  | |   | |    / __ \ / ____|  ____|   _   / /          |", 0Ah, 0
+lose3       BYTE      "|           \ \_/ / |  | | |  | |   | |   | |  | | (___ | |__     (_) | |           |", 0Ah, 0
+lose4       BYTE      "|            \   /| |  | | |  | |   | |   | |  | |\___ \|  __|        | |           |", 0Ah, 0
+lose5       BYTE      "|             | | | |__| | |__| |   | |___| |__| |____) | |____    _  | |           |", 0Ah, 0
+lose6       BYTE      "|             |_|  \____/ \____/    |______\____/|_____/|______|  (_) | |           |", 0Ah, 0
+lose7       BYTE      "|                                                                      \_\          |", 0Ah, 0
 
 
-win1       BYTE    "|              __     ______  _    _   __          _______ _   _       __           |", 0Ah, 0
-win2       BYTE    "|              \ \   / / __ \| |  | |  \ \        / /_   _| \ | |   _  \ \          |", 0Ah, 0
-win3       BYTE    "|               \ \_/ / |  | | |  | |   \ \  /\  / /  | | |  \| |  (_)  | |         |", 0Ah, 0
-win4       BYTE    "|                \   /| |  | | |  | |    \ \/  \/ /   | | | . ` |       | |         |", 0Ah, 0
-win5       BYTE    "|                 | | | |__| | |__| |     \  /\  /   _| |_| |\  |   _   | |         |", 0Ah, 0
-win6       BYTE    "|                 |_|  \____/ \____/       \/  \/   |_____|_| \_|  (_)  | |         |", 0Ah, 0
-win7       BYTE    "|                                                                      /_/          |", 0Ah, 0
+win1       BYTE       "|              __     ______  _    _   __          _______ _   _       __           |", 0Ah, 0
+win2       BYTE       "|              \ \   / / __ \| |  | |  \ \        / /_   _| \ | |   _  \ \          |", 0Ah, 0
+win3       BYTE       "|               \ \_/ / |  | | |  | |   \ \  /\  / /  | | |  \| |  (_)  | |         |", 0Ah, 0
+win4       BYTE       "|                \   /| |  | | |  | |    \ \/  \/ /   | | | . ` |       | |         |", 0Ah, 0
+win5       BYTE       "|                 | | | |__| | |__| |     \  /\  /   _| |_| |\  |   _   | |         |", 0Ah, 0
+win6       BYTE       "|                 |_|  \____/ \____/       \/  \/   |_____|_| \_|  (_)  | |         |", 0Ah, 0
+win7       BYTE       "|                                                                      /_/          |", 0Ah, 0
                                        
 
-welcome		BYTE	"|               Bienvenido al acertijo del lobo la obeja y la lechuga               |", 0Ah, 0 
+welcome		BYTE	  "|               Bienvenido al acertijo del lobo la obeja y la lechuga               |", 0Ah, 0 
 
-home        BYTE    "|                                  MENU PRINCIPAL                                   |", 0Ah, 0
+home        BYTE      "|                                  MENU PRINCIPAL                                   |", 0Ah, 0
 
-select      BYTE    "                               Selecciona una opcion: ", 0
+select      BYTE      "                               Selecciona una opcion: ", 0
 
-mainmenu1   BYTE    "|                              (1.) Iniciar el juego                                |", 0Ah, 0
-mainmenu2   BYTE    "|                              (2.) Ver Instrucciones                               |", 0Ah, 0
-mainmenu3   BYTE    "|                              (3.) Salir del juego                                 |", 0Ah, 0
+mainmenu1   BYTE      "|                              (1.) Iniciar el juego                                |", 0Ah, 0
+mainmenu2   BYTE      "|                              (2.) Ver Instrucciones                               |", 0Ah, 0
+mainmenu3   BYTE      "|                              (3.) Salir del juego                                 |", 0Ah, 0
 
-finish      BYTE    "|                               EL JUEGO HA TERMINADO                               |", 0Ah, 0
-
-
-ovejaiz1     BYTE    "|     __                                                                            |", 0Ah, 0
-ovejaiz2     BYTE    "|  o-''|\_____/)                                                                    |", 0Ah, 0
-ovejaiz3     BYTE    "|   \_/|_)¿?¿? )                                                                    |", 0Ah, 0
-ovejaiz4     BYTE    "|      \ ¿?¿?¿/                                                                     |", 0Ah, 0
-ovejaiz5     BYTE    "|      (_/ (_/                                                                      |", 0Ah, 0
-
-ovejader1     BYTE    "|                                                                     __            |", 0Ah, 0
-ovejader2     BYTE    "|                                                                  o-''|\_____/)    |", 0Ah, 0
-ovejader3     BYTE    "|                                                                   \_/|_)¿?¿? )    |", 0Ah, 0
-ovejader4     BYTE    "|                                                                      \ ¿?¿?¿/     |", 0Ah, 0
-ovejader5     BYTE    "|                                                                      (_/ (_/      |", 0Ah, 0
-
-loboiz1       BYTE    "|     _|\       \                                                                   |", 0Ah, 0
-loboiz2       BYTE    "|   o-'' \_____//                                                                   |", 0Ah, 0
-loboiz3       BYTE    "|    ---|       )                                                                   |", 0Ah, 0
-loboiz4       BYTE    "|       \  __   |                                                                   |", 0Ah, 0
-loboiz5       BYTE    "|       (_/  (_/                                                                    |", 0Ah, 0
-
-loboder1      BYTE    "|                                                                   _|\       \     |", 0Ah, 0
-loboder2      BYTE    "|                                                                 o-'' \_____//     |", 0Ah, 0
-loboder3      BYTE    "|                                                                  ---|       )     |", 0Ah, 0
-loboder4      BYTE    "|                                                                     \  __   |     |", 0Ah, 0
-loboder5      BYTE    "|                                                                     (_/  (_/      |", 0Ah, 0
+finish      BYTE      "|                               EL JUEGO HA TERMINADO                               |", 0Ah, 0
 
 
+ovejaiz1     BYTE     "|     __                                                                            |", 0Ah, 0
+ovejaiz2     BYTE     "|  o-''|\_____/)    ~   ~~~~~~~        ~~~~~~~     ~~~~~~~   ~~~~                   |", 0Ah, 0
+ovejaiz3     BYTE     "|   \_/|_)¿?¿? )    ~~   ~~~~~~~            ~~~~~~~     ~~~~~~~ ~                   |", 0Ah, 0
+ovejaiz4     BYTE     "|      \ ¿?¿?¿/     ~          ~~~~~~~           ~~~~~~~        ~                   |", 0Ah, 0
+ovejaiz5     BYTE     "|      (_/ (_/      ~~~~~~~~~          ~~~~~~~       ~~~~~~~    ~                   |", 0Ah, 0
 
-lechugaiz1    BYTE    "|       ____                                                                        |", 0Ah, 0
-lechugaiz2    BYTE    "|     /{{{}}}\?                                                                     |", 0Ah, 0
-lechugaiz3    BYTE    "|    |{{{{}}}}|                                                                     |", 0Ah, 0
-lechugaiz4    BYTE    "|    ¿\_{{}}_/                                                                      |", 0Ah, 0
+ovejader1     BYTE    "|                  ~~~       ~~~~~~~  ~~~~~~~~~~~~~~ ~~~~~~~   ~        __          |", 0Ah, 0
+ovejader2     BYTE    "|                      ~~~~~~~     ~~~~~~~   ~~~~~~~           ~     o-''|\_____/)  |", 0Ah, 0
+ovejader3     BYTE    "|                  ~~         ~~~~~~~          ~~~~~~~   ~~~~~ ~      \_/|_)¿?¿? )  |", 0Ah, 0
+ovejader4     BYTE    "|                       ~~~~~~~       ~~~~~~~        ~~~~      ~         \ ¿?¿?¿/   |", 0Ah, 0
+ovejader5     BYTE    "|                  ~~~~~       ~~~~~~~      ~~~~~~~      ~~~~  ~         (_/ (_/    |", 0Ah, 0
 
-lechugader1   BYTE    "|                                                                      ____         |", 0Ah, 0
-lechugader2   BYTE    "|                                                                    /{{{}}}\?      |", 0Ah, 0
-lechugader3   BYTE    "|                                                                   |{{{{}}}}|      |", 0Ah, 0
-lechugader4   BYTE    "|                                                                   ¿\_{{}}_/       |", 0Ah, 0
+loboiz1       BYTE    "|     _|\       \  ~~~~~~~~~~        ~~~~~~~~~~     ~~~~~  ~~~ ~                    |", 0Ah, 0
+loboiz2       BYTE    "|   o-'' \_____//  ~   ~~~~~~~~ ~ ~~~~~ ~~~~         ~~~~~~~                        |", 0Ah, 0
+loboiz3       BYTE    "|    ---|       )  ~~~~      ~~~      ~~~    ~~~~~~~~~    ~~~~ ~                    |", 0Ah, 0
+loboiz4       BYTE    "|       \  __   |    ~~~~~~~~      ~~~~~~~~        ~~~~~~~~    ~                    |", 0Ah, 0
+loboiz5       BYTE    "|       (_/  (_/   ~~    ~~~~~~~~~~~~        ~~~~~    ~~~~    ~~                    |", 0Ah, 0
+
+loboder1      BYTE    "|                  ~~~~~~~~~~~     ~~~~      ~~~~~~~      ~~~~~~     _|\       \   |", 0Ah, 0
+loboder2      BYTE    "|                   ~      ~~~~          ~~~~          ~~~~        o-'' \_____//   |", 0Ah, 0
+loboder3      BYTE    "|                     ~~~~               ~~~~~~~~~~       ~~~~~     ---|       )   |", 0Ah, 0
+loboder4      BYTE    "|                  ~~           ~~~~      ~~~     ~~~~~      ~         \  __   |   |", 0Ah, 0
+loboder5      BYTE    "|                  ~~~~~    ~~~~~~~~~~~    ~~~~~~~    ~~~~~~           (_/  (_/    |", 0Ah, 0
+
+lechugaiz1    BYTE    "|       ____       ~   ~~~~         ~~~~~~~~~~     ~~~~     ~~~~                   |", 0Ah, 0
+lechugaiz2    BYTE    "|     /{{{}}}\?     ~~~~      ~~~~~~~~        ~~~~~~~~~~~~                         |", 0Ah, 0
+lechugaiz3    BYTE    "|    |{{{{}}}}|         ~~~~~~       ~~~~     ~~~     ~~~~~~ ~                     |", 0Ah, 0
+lechugaiz4    BYTE    "|    ¿\_{{}}_/     ~       ~~~~~~~~~~      ~~~~~~~~~~                              |", 0Ah, 0
+
+lechugader1   BYTE    "|                  ~     ~~~~     ~~~~~~    ~~~~~~    ~~~~~~~~~~        ____       |", 0Ah, 0
+lechugader2   BYTE    "|                  ~~~~     ~~~~~     ~~~~~~~~~~           ~          /{{{}}}\?    |", 0Ah, 0
+lechugader3   BYTE    "|                  ~~   ~~~~   ~~~~~        ~~~~~~~~      ~~~        |{{{{}}}}|    |", 0Ah, 0
+lechugader4   BYTE    "|                  ~~~~~~~~~~~    ~~~~~~~   ~~~~~~      ~~~~~~~      ¿\_{{}}_/     |", 0Ah, 0
 
 
 
