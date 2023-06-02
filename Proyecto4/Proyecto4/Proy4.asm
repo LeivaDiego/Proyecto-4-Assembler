@@ -109,6 +109,7 @@ aloneopt        BYTE    "|                                     4) Regresar Solo 
 
 message12		BYTE	"|                   Ingresa el numero 1 para iniciar con el juego:                  |", 0
 errormsg1		BYTE	"|                        Ingresaste un número que no es valido                      |", 0Ah, 0
+errormsg2		BYTE	"|                      El objeto no esta disponible de este lado                    |", 0Ah, 0
 pru     		BYTE	"                                       Prueba                                        ", 0Ah, 0
 izwolf       	BYTE	"|                              Lobo esta del lado Izquierdo                         |", 0Ah, 0
 derwolf      	BYTE	"|                               Lobo esta del lado Derecho                          |", 0Ah, 0
@@ -126,11 +127,12 @@ rightoption     BYTE    "|                   Los objetos que puedes llevar de re
 
 dato1   db "%d", 0
 Inicio1 dd 0
+movida dd 0
 
-wolf    DWORD   0
+wolf    DWORD   1
 sheep   DWORD   0
 lettuce DWORD   0
-pastor  DWORD   0
+pastor  DWORD   1
 
 
 .code
@@ -382,13 +384,16 @@ wherePastor proc
     .IF pastor == 0 
 		;el pastor esta en la izquierda
         call leftOptions
-        invoke printf, addr select
+        call questionleft
+        
+
     .ENDIF
 
 	.IF pastor == 1
         ;el pastor esta en la derecha
         call rightOptions
-        invoke printf, addr select
+        call questionright
+        
 	.ENDIF
     ret
 wherePastor endp
@@ -435,5 +440,130 @@ rightOptions proc                        ;Creador: Diego Leiva Muestra al usuari
     
     ret
 rightOptions endp
+
+questionleft proc
+    askopt:
+
+    sub esp, 4                      ; Reduce la pila en 4 bytes para alojar el valor ingresado.
+    push offset select              ; Empuja la dirección del mensaje "select" a la pila para printf.
+    call printf                     ; Llama a la función printf para imprimir el mensaje de solicitud.
+    add esp, 8                      ; Aumenta la pila en 8 bytes, limpiando la dirección del mensaje y el valor anterior.
+
+    lea eax, [ebp - 4]              ; Carga la dirección de la variable local en eax.
+    push eax                        ; Empuja la dirección de la variable local a la pila para scanf.
+    push offset dato1               ; Empuja la dirección del formato de entrada a la pila para scanf.
+    call scanf                      ; Llama a la función scanf para leer el valor de entrada.
+    add esp, 8                      ; Aumenta la pila en 8 bytes, limpiando las direcciones de la pila.
+
+    mov eax, [ebp - 4]              ; Mueve el valor de entrada a eax.
+    mov movida, eax                 ; Guarda el valor de entrada en Inicio1.
+
+    mov eax, movida                 ; Carga el valor de Inicio1 en eax.
+    cmp eax, 1                      ; Compara el valor de eax con 1.
+    je wolfs                        ; Si eax es igual a 1, salta a la etiqueta "valid".
+    cmp eax, 2                      ; Si no, compara el valor de eax con 2.
+    je sheeps                       ; Si eax es igual a 2, salta a la etiqueta "valid".
+    cmp eax, 3                      ; Si no, compara el valor de eax con 3.
+    je lettuces
+
+
+    sheeps:
+    .IF sheep == 1
+        invoke printf, addr errormsg2
+        jmp askopt
+    .ELSE
+        jmp valid
+    .ENDIF
+
+    wolfs:
+    .IF wolf == 1
+        invoke printf, addr errormsg2
+        jmp askopt
+    .ELSE
+        jmp valid
+    .ENDIF
+
+    lettuces:
+    .IF lettuce == 1
+        invoke printf, addr errormsg2
+        jmp askopt
+    .ELSE
+        jmp valid
+    .ENDIF
+
+    invoke printf, addr errormsg1   ; Si no es igual a ninguno, imprime el mensaje de error.
+    jmp askopt                      ; Y luego salta a "asknum" para pedir otro valor.
+
+    valid:                          ; Define la etiqueta "valid" (salto si el valor de entrada es válido).
+    mov movida, eax                ; Guarda el valor de entrada en Inicio1.
+    ret                             ; Regresa al código que llamó a esta subrutina.
+
+    ret
+questionleft endp
+
+
+
+questionright proc
+    askopt:
+
+    sub esp, 4                      ; Reduce la pila en 4 bytes para alojar el valor ingresado.
+    push offset select              ; Empuja la dirección del mensaje "select" a la pila para printf.
+    call printf                     ; Llama a la función printf para imprimir el mensaje de solicitud.
+    add esp, 8                      ; Aumenta la pila en 8 bytes, limpiando la dirección del mensaje y el valor anterior.
+
+    lea eax, [ebp - 4]              ; Carga la dirección de la variable local en eax.
+    push eax                        ; Empuja la dirección de la variable local a la pila para scanf.
+    push offset dato1               ; Empuja la dirección del formato de entrada a la pila para scanf.
+    call scanf                      ; Llama a la función scanf para leer el valor de entrada.
+    add esp, 8                      ; Aumenta la pila en 8 bytes, limpiando las direcciones de la pila.
+
+    mov eax, [ebp - 4]              ; Mueve el valor de entrada a eax.
+    mov movida, eax                 ; Guarda el valor de entrada en Inicio1.
+
+    mov eax, movida                 ; Carga el valor de Inicio1 en eax.
+    cmp eax, 1                      ; Compara el valor de eax con 1.
+    je wolfs                        ; Si eax es igual a 1, salta a la etiqueta "valid".
+    cmp eax, 2                      ; Si no, compara el valor de eax con 2.
+    je sheeps                       ; Si eax es igual a 2, salta a la etiqueta "valid".
+    cmp eax, 3                      ; Si no, compara el valor de eax con 3.
+    je lettuces
+    cmp eax, 4                      ; Si no, compara el valor de eax con 3.
+    je valid
+
+
+    sheeps:
+    .IF sheep == 0
+        invoke printf, addr errormsg2
+        jmp askopt
+    .ELSE
+        jmp valid
+    .ENDIF
+
+    wolfs:
+    .IF wolf == 0
+        invoke printf, addr errormsg2
+        jmp askopt
+    .ELSE
+        jmp valid
+    .ENDIF
+
+    lettuces:
+    .IF lettuce == 0
+        invoke printf, addr errormsg2
+        jmp askopt
+    .ELSE
+        jmp valid
+    .ENDIF
+
+    invoke printf, addr errormsg1   ; Si no es igual a ninguno, imprime el mensaje de error.
+    jmp askopt                      ; Y luego salta a "asknum" para pedir otro valor.
+
+    valid:                          ; Define la etiqueta "valid" (salto si el valor de entrada es válido).
+    mov movida, eax                ; Guarda el valor de entrada en Inicio1.
+    ret                             ; Regresa al código que llamó a esta subrutina.
+
+    ret
+questionright endp
+
 
 end
