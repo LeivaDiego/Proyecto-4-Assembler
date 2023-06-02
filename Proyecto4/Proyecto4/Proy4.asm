@@ -42,12 +42,12 @@ title4		BYTE	"|            / ____ \ |____| |____| | \ \  | |   _| || |__| | |__|
 title5		BYTE	"|           /_/    \_\_____|______|_|  \_\ |_|  |_____\____/ \____/                 |", 0Ah, 0
 
 
-title6      BYTE    "|             _      _       _____         _____ _______ ____  _____                |", 0Ah, 0
-title7      BYTE    "|            | |    | |     |  __ \ /\    / ____|__   __/ __ \|  __ \               |", 0Ah, 0
-title8      BYTE    "|          __| | ___| |     | |__) /  \  | (___    | | | |  | | |__) |              |", 0Ah, 0
-title9      BYTE    "|         / _` |/ _ \ |     |  ___/ /\ \  \___ \   | | | |  | |  _  /               |", 0Ah, 0
-title10     BYTE    "|        | (_| |  __/ |     | |  / ____ \ ____) |  | | | |__| | | \ \               |", 0Ah, 0
-title11     BYTE    "|         \__,_|\___|_|     |_| /_/    \_\_____/   |_|  \____/|_|  \_\              |", 0Ah, 0
+title6      BYTE    "|         _____  ______ _         _____         _____ _______ ____  _____           |", 0Ah, 0
+title7      BYTE    "|        |  __ \|  ____| |       |  __ \ /\    / ____|__   __/ __ \|  __ \          |", 0Ah, 0
+title8      BYTE    "|        | |  | | |__  | |       | |__) /  \  | (___    | | | |  | | |__) |         |", 0Ah, 0
+title9      BYTE    "|        | |  | |  __| | |       |  ___/ /\ \  \___ \   | | | |  | |  _  /          |", 0Ah, 0
+title10     BYTE    "|        | |__| | |____| |____   | |  / ____ \ ____) |  | | | |__| | | \ \          |", 0Ah, 0
+title11     BYTE    "|        |_____/|______|______|  |_| /_/    \_\_____/   |_|  \____/|_|  \_\         |", 0Ah, 0
 
 
 logo0		BYTE	"|           / \      _-'                  __  _                      _ _            |", 0Ah, 0
@@ -108,10 +108,27 @@ lettuceopt		BYTE	"|                                     3) Lechuga              
 
 message12		BYTE	"|                   Ingresa el numero 1 para iniciar con el juego:                  |", 0
 errormsg1		BYTE	"|                        Ingresaste un número que no es valido                      |", 0Ah, 0
+pru     		BYTE	"                                       Prueba                                        ", 0Ah, 0
+izwolf       	BYTE	"|                              Lobo esta del lado Izquierdo                         |", 0Ah, 0
+derwolf      	BYTE	"|                               Lobo esta del lado Derecho                          |", 0Ah, 0
+izsheep     	BYTE	"|                              Oveja esta del lado Izquierdo                        |", 0Ah, 0
+dersheep     	BYTE	"|                               Oveja esta del lado Derecho                         |", 0Ah, 0
+izlettuce    	BYTE	"|                             Lechuga esta del lado Izquierdo                       |", 0Ah, 0
+derlettuce     	BYTE	"|                              Lechuga esta del lado Derecho                        |", 0Ah, 0
+izpastor    	BYTE	"|                              Pastor esta del lado Izquierdo                       |", 0Ah, 0
+derpastor     	BYTE	"|                               Pastor esta del lado Derecho                        |", 0Ah, 0
+state        	BYTE	"|                            El estado actual de los objetos es                     |", 0Ah, 0
+
 
 
 dato1   db "%d", 0
 Inicio1 dd 0
+
+wolf    DWORD   0
+sheep   DWORD   0
+lettuce DWORD   0
+pastor  DWORD   0
+
 
 .code
 
@@ -168,6 +185,7 @@ main proc
 
 	.IF Inicio1 == 1 
 		;Programar Juego
+        call actualstate
 
 
 	.ELSEIF Inicio1 == 2 
@@ -282,5 +300,77 @@ inRangeStart proc                   ;Creador: Diego Leiva Valida si un numero es
     ret                             ; Regresa al código que llamó a esta subrutina.
 
 inRangeStart endp
+
+
+
+actualstate proc                        ; Creador: Pablo Orellana Mostrar estado actual del juego
+    invoke printf, addr separator
+    invoke printf, addr space
+    invoke printf, addr state
+    
+    mov eax, 0
+    cmp sheep, eax
+    je lefts
+    jne rights
+
+    lefts:
+        invoke printf, addr space
+        invoke printf, addr izsheep
+        jmp compw
+    rights:
+        invoke printf, addr space
+        invoke printf, addr dersheep
+        jmp compw
+
+    compw:
+        mov eax, 0
+        cmp wolf, eax
+        je leftw
+        jne rightw
+
+        leftw:
+            
+            invoke printf, addr izwolf
+            jmp compl
+        rightw:
+            
+            invoke printf, addr derwolf
+            jmp compl
+
+    compl:
+        mov eax, 0
+        cmp lettuce, eax
+        je leftl
+        jne rightl
+    
+        leftl:
+            
+            invoke printf, addr izlettuce
+            jmp compp
+        rightl:
+            
+            invoke printf, addr derlettuce
+            jmp compp
+
+    compp:
+        mov eax, 0
+        cmp pastor, eax
+        je leftp
+        jne rightp
+
+        leftp:
+            
+            invoke printf, addr izpastor
+            invoke printf, addr separator
+            jmp endl
+        rightp:
+            
+            invoke printf, addr derpastor
+            invoke printf, addr separator
+            jmp endl
+
+    endl:
+    ret
+actualstate endp
 
 end
