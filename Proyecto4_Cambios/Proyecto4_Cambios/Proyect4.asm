@@ -127,7 +127,7 @@ lechugader4   BYTE    "|                  ~~~~~~~~~~~    ~~~~~~~   ~~~~~~      ~
 
 
 
-
+again           BYTE    "|                          Volver a jugar?     1) Si       2) No                    |", 0Ah, 0
 
 instructions1	BYTE	"|                    Aqui podras ver las instrucciones del juego                    |", 0Ah, 0
 instructions2	BYTE	"|  Un pastor tiene que atravesar a la otra orilla de un rio con un lobo, una oveja  |", 0Ah, 0
@@ -163,6 +163,7 @@ rightoption     BYTE    "|                   Los objetos que puedes llevar de re
 dato1   db "%d", 0
 Inicio1 dd 0
 movida dd 0
+reinicio dd 0
 
 wolf    DWORD   0 ;lado del lobo
 sheep   DWORD   0 ;lado de la oveja
@@ -176,7 +177,12 @@ game    DWORD   2 ;ya ganamos?
 
 public main
 main proc
-
+    start:
+    mov wolf, 0
+    mov sheep, 0
+    mov lettuce, 0
+    mov pastor, 0
+    mov game, 2
     invoke printf, addr separator
     invoke printf, addr space
     invoke printf, addr title0
@@ -231,7 +237,37 @@ main proc
         .IF game == 2
             jmp continue
         .ENDIF
-            
+     askopt:
+     invoke printf, addr again
+     sub esp, 4                      ; Reduce la pila en 4 bytes para alojar el valor ingresado.
+     push offset select              ; Empuja la dirección del mensaje "select" a la pila para printf.
+     call printf                     ; Llama a la función printf para imprimir el mensaje de solicitud.
+     add esp, 8                      ; Aumenta la pila en 8 bytes, limpiando la dirección del mensaje y el valor anterior.
+
+     lea eax, [ebp - 4]              ; Carga la dirección de la variable local en eax.
+     push eax                        ; Empuja la dirección de la variable local a la pila para scanf.
+     push offset dato1               ; Empuja la dirección del formato de entrada a la pila para scanf.
+     call scanf                      ; Llama a la función scanf para leer el valor de entrada.
+     add esp, 8                      ; Aumenta la pila en 8 bytes, limpiando las direcciones de la pila.
+
+     mov eax, [ebp - 4]              ; Mueve el valor de entrada a eax.
+     mov reinicio, eax                 ; Guarda el valor de entrada en Inicio1.
+     
+     cmp reinicio, 1
+     je valid
+     cmp reinicio, 2
+     je valid
+
+     invoke printf, addr errormsg1
+     jmp askopt
+
+     valid:
+     .IF reinicio == 1 
+        jmp start
+        .ENDIF
+     .IF reinicio == 2
+        jmp finished
+     .ENDIF  
 
 	.ELSEIF Inicio1 == 2 
 		;Instrucciones
@@ -264,6 +300,7 @@ main proc
         invoke printf, addr errormsg1
         invoke printf, addr separator
         
+    finished:
 
 	.ENDIF
 
@@ -275,14 +312,13 @@ main endp
 ;------------------------------------------------------------
 ;                         SUB RUTINAS
 ;------------------------------------------------------------
+                                                                                                                                                                                                                            dummy proc
+                                                                                                                                                                                                                             ret
+                                                                                                                                                                                                                            dummy endp
 
-dummy proc
-    ret
-dummy endp
-
-dummy2 proc
-    ret
-dummy2 endp
+                                                                                                                                                                                                                            dummy2 proc
+                                                                                                                                                                                                                             ret
+                                                                                                                                                                                                                            dummy2 endp
 
 ;-----------------------------------------------------------------------------------------------------------------------
 
