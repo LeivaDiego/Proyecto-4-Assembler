@@ -62,6 +62,25 @@ logo8		BYTE	"|             ''-_    \.//                                         
 logo9		BYTE	"|               / '-____'                                                           |", 0Ah, 0
 logo10		BYTE	"|              /                                                                    |", 0Ah, 0
 
+
+lose1       BYTE    "|          __     ______  _    _     _      ____   _____ ______         __          |", 0Ah, 0
+lose2       BYTE    "|          \ \   / / __ \| |  | |   | |    / __ \ / ____|  ____|   _   / /          |", 0Ah, 0
+lose3       BYTE    "|           \ \_/ / |  | | |  | |   | |   | |  | | (___ | |__     (_) | |           |", 0Ah, 0
+lose4       BYTE    "|            \   /| |  | | |  | |   | |   | |  | |\___ \|  __|        | |           |", 0Ah, 0
+lose5       BYTE    "|             | | | |__| | |__| |   | |___| |__| |____) | |____    _  | |           |", 0Ah, 0
+lose6       BYTE    "|             |_|  \____/ \____/    |______\____/|_____/|______|  (_) | |           |", 0Ah, 0
+lose7       BYTE    "|                                                                      \_\          |", 0Ah, 0
+
+
+win1       BYTE    "|              __     ______  _    _   __          _______ _   _       __            |", 0Ah, 0
+win2       BYTE    "|              \ \   / / __ \| |  | |  \ \        / /_   _| \ | |   _  \ \           |", 0Ah, 0
+win3       BYTE    "|               \ \_/ / |  | | |  | |   \ \  /\  / /  | | |  \| |  (_)  | |          |", 0Ah, 0
+win4       BYTE    "|                \   /| |  | | |  | |    \ \/  \/ /   | | | . ` |       | |          |", 0Ah, 0
+win5       BYTE    "|                 | | | |__| | |__| |     \  /\  /   _| |_| |\  |   _   | |          |", 0Ah, 0
+win6       BYTE    "|                 |_|  \____/ \____/       \/  \/   |_____|_| \_|  (_)  | |          |", 0Ah, 0
+win7       BYTE    "|                                                                      /_/           |", 0Ah, 0
+                                       
+
 welcome		BYTE	"|               Bienvenido al acertijo del lobo la obeja y la lechuga               |", 0Ah, 0 
 
 home        BYTE    "|                                  MENU PRINCIPAL                                   |", 0Ah, 0
@@ -195,7 +214,7 @@ main proc
         invoke printf, addr separator
         invoke printf, addr message13
         invoke printf, addr separator
-        call subr1
+        
 
 	.ENDIF
 
@@ -209,27 +228,33 @@ main endp
 ;------------------------------------------------------------
 
 
-subr1 proc   ;subrutina
-    invoke printf, addr separator
-    invoke printf, addr space
-    invoke printf, addr welcome
+loser proc   
     invoke printf, addr space
     invoke printf, addr separator
+    invoke printf, addr lose1
+    invoke printf, addr lose2
+    invoke printf, addr lose3
+    invoke printf, addr lose4
+    invoke printf, addr lose5
+    invoke printf, addr lose6
+    invoke printf, addr lose7
+    invoke printf, addr separator
+     
+    ret
+loser endp 
+
+winer proc   
     invoke printf, addr space
-    invoke printf, addr home
-    invoke printf, addr space
-    invoke printf, addr mainmenu1
-    invoke printf, addr mainmenu2
-    invoke printf, addr mainmenu3
-    invoke printf, addr space
+    invoke printf, addr separator
+    invoke printf, addr win1
+    invoke printf, addr win2
+    invoke printf, addr win3
+    invoke printf, addr win4
+    invoke printf, addr win5
+    invoke printf, addr win6
+    invoke printf, addr win7
     invoke printf, addr separator
     ret
-subr1 endp 
-
-
-
-    
-
-
+winer endp 
 
 end
