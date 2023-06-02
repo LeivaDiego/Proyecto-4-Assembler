@@ -104,6 +104,7 @@ instructions7	BYTE	"|    A continuacion debera ingresar, cual sera el primer obj
 wolfopt		    BYTE	"|                                     1) Lobo                                       |", 0Ah, 0
 sheepopt		BYTE	"|                                     2) Oveja                                      |", 0Ah, 0
 lettuceopt		BYTE	"|                                     3) Lechuga                                    |", 0Ah, 0
+aloneopt        BYTE    "|                                     4) Regresar Solo                              |", 0Ah, 0
 
 
 message12		BYTE	"|                   Ingresa el numero 1 para iniciar con el juego:                  |", 0
@@ -118,6 +119,8 @@ derlettuce     	BYTE	"|                              Lechuga esta del lado Derec
 izpastor    	BYTE	"|                              Pastor esta del lado Izquierdo                       |", 0Ah, 0
 derpastor     	BYTE	"|                               Pastor esta del lado Derecho                        |", 0Ah, 0
 state        	BYTE	"|                            El estado actual de los objetos es                     |", 0Ah, 0
+leftoption      BYTE    "|                  Los objetos que puedes mover a la derecha son:                   |", 0Ah, 0
+rightoption     BYTE    "|                   Los objetos que puedes llevar de regreso son:                   |", 0Ah, 0
 
 
 
@@ -126,7 +129,7 @@ Inicio1 dd 0
 
 wolf    DWORD   0
 sheep   DWORD   0
-lettuce DWORD   0
+lettuce DWORD   1
 pastor  DWORD   0
 
 
@@ -186,6 +189,7 @@ main proc
 	.IF Inicio1 == 1 
 		;Programar Juego
         call actualstate
+        call wherePastor
 
 
 	.ELSEIF Inicio1 == 2 
@@ -372,5 +376,60 @@ actualstate proc                        ; Creador: Pablo Orellana Mostrar estado
     endl:
     ret
 actualstate endp
+
+
+wherePastor proc
+    .IF pastor == 0 
+		;el pastor esta en la izquierda
+        call leftOptions
+    .ENDIF
+
+	.IF pastor == 1
+        ;el pastor esta en la derecha
+        call rightOptions
+	.ENDIF
+    ret
+wherePastor endp
+
+
+
+leftOptions proc        ;Creador: Diego Leiva Muestra al usuario lo que puede mover de izquierda a derecha
+    invoke printf, addr leftoption
+    invoke printf, addr space
+
+    .IF  wolf == 0
+        invoke printf, addr wolfopt
+    .ENDIF
+    
+    .IF sheep == 0
+        invoke printf, addr sheepopt
+    .ENDIF
+
+    .IF  lettuce == 0
+        invoke printf, addr lettuceopt
+    .ENDIF
+    
+    ret
+leftOptions endp
+
+
+rightOptions proc
+    invoke printf, addr rightoption
+    invoke printf, addr space
+
+    .IF  wolf == 1
+        invoke printf, addr wolfopt
+    .ENDIF
+    
+    .IF sheep == 1
+        invoke printf, addr sheepopt
+    .ENDIF
+
+    .IF  lettuce == 1
+        invoke printf, addr lettuceopt
+    .ENDIF
+    
+    ret
+rightOptions endp
 
 end
