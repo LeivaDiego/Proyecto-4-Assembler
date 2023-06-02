@@ -71,13 +71,13 @@ lose6       BYTE    "|             |_|  \____/ \____/    |______\____/|_____/|__
 lose7       BYTE    "|                                                                      \_\          |", 0Ah, 0
 
 
-win1       BYTE    "|              __     ______  _    _   __          _______ _   _       __            |", 0Ah, 0
-win2       BYTE    "|              \ \   / / __ \| |  | |  \ \        / /_   _| \ | |   _  \ \           |", 0Ah, 0
-win3       BYTE    "|               \ \_/ / |  | | |  | |   \ \  /\  / /  | | |  \| |  (_)  | |          |", 0Ah, 0
-win4       BYTE    "|                \   /| |  | | |  | |    \ \/  \/ /   | | | . ` |       | |          |", 0Ah, 0
-win5       BYTE    "|                 | | | |__| | |__| |     \  /\  /   _| |_| |\  |   _   | |          |", 0Ah, 0
-win6       BYTE    "|                 |_|  \____/ \____/       \/  \/   |_____|_| \_|  (_)  | |          |", 0Ah, 0
-win7       BYTE    "|                                                                      /_/           |", 0Ah, 0
+win1       BYTE    "|              __     ______  _    _   __          _______ _   _       __           |", 0Ah, 0
+win2       BYTE    "|              \ \   / / __ \| |  | |  \ \        / /_   _| \ | |   _  \ \          |", 0Ah, 0
+win3       BYTE    "|               \ \_/ / |  | | |  | |   \ \  /\  / /  | | |  \| |  (_)  | |         |", 0Ah, 0
+win4       BYTE    "|                \   /| |  | | |  | |    \ \/  \/ /   | | | . ` |       | |         |", 0Ah, 0
+win5       BYTE    "|                 | | | |__| | |__| |     \  /\  /   _| |_| |\  |   _   | |         |", 0Ah, 0
+win6       BYTE    "|                 |_|  \____/ \____/       \/  \/   |_____|_| \_|  (_)  | |         |", 0Ah, 0
+win7       BYTE    "|                                                                      /_/          |", 0Ah, 0
                                        
 
 welcome		BYTE	"|               Bienvenido al acertijo del lobo la obeja y la lechuga               |", 0Ah, 0 
@@ -91,6 +91,46 @@ mainmenu2   BYTE    "|                              (2.) Ver Instrucciones      
 mainmenu3   BYTE    "|                              (3.) Salir del juego                                 |", 0Ah, 0
 
 finish      BYTE    "|                               EL JUEGO HA TERMINADO                               |", 0Ah, 0
+
+
+ovejaiz1     BYTE    "|     __                                                                            |", 0Ah, 0
+ovejaiz2     BYTE    "|  o-''|\_____/)                                                                    |", 0Ah, 0
+ovejaiz3     BYTE    "|   \_/|_)¿?¿? )                                                                    |", 0Ah, 0
+ovejaiz4     BYTE    "|      \ ¿?¿?¿/                                                                     |", 0Ah, 0
+ovejaiz5     BYTE    "|      (_/ (_/                                                                      |", 0Ah, 0
+
+ovejader1     BYTE    "|                                                                     __            |", 0Ah, 0
+ovejader2     BYTE    "|                                                                  o-''|\_____/)    |", 0Ah, 0
+ovejader3     BYTE    "|                                                                   \_/|_)¿?¿? )    |", 0Ah, 0
+ovejader4     BYTE    "|                                                                      \ ¿?¿?¿/     |", 0Ah, 0
+ovejader5     BYTE    "|                                                                      (_/ (_/      |", 0Ah, 0
+
+loboiz1       BYTE    "|     _|\       \                                                                   |", 0Ah, 0
+loboiz2       BYTE    "|   o-'' \_____//                                                                   |", 0Ah, 0
+loboiz3       BYTE    "|    ---|       )                                                                   |", 0Ah, 0
+loboiz4       BYTE    "|       \  __   |                                                                   |", 0Ah, 0
+loboiz5       BYTE    "|       (_/  (_/                                                                    |", 0Ah, 0
+
+loboder1      BYTE    "|                                                                   _|\       \     |", 0Ah, 0
+loboder2      BYTE    "|                                                                 o-'' \_____//     |", 0Ah, 0
+loboder3      BYTE    "|                                                                  ---|       )     |", 0Ah, 0
+loboder4      BYTE    "|                                                                     \  __   |     |", 0Ah, 0
+loboder5      BYTE    "|                                                                     (_/  (_/      |", 0Ah, 0
+
+
+
+lechugaiz1    BYTE    "|       ____                                                                        |", 0Ah, 0
+lechugaiz2    BYTE    "|     /{{{}}}\?                                                                     |", 0Ah, 0
+lechugaiz3    BYTE    "|    |{{{{}}}}|                                                                     |", 0Ah, 0
+lechugaiz4    BYTE    "|    ¿\_{{}}_/                                                                      |", 0Ah, 0
+
+lechugader1   BYTE    "|                                                                      ____         |", 0Ah, 0
+lechugader2   BYTE    "|                                                                    /{{{}}}\?      |", 0Ah, 0
+lechugader3   BYTE    "|                                                                   |{{{{}}}}|      |", 0Ah, 0
+lechugader4   BYTE    "|                                                                   ¿\_{{}}_/       |", 0Ah, 0
+
+
+
 
 
 instructions1	BYTE	"|                    Aqui podras ver las instrucciones del juego                    |", 0Ah, 0
@@ -330,11 +370,22 @@ actualstate proc                        ; Creador: Pablo Orellana Mostrar estado
 
     lefts:
         invoke printf, addr space
-        invoke printf, addr izsheep
+        ;invoke printf, addr izsheep
+        invoke printf, addr ovejaiz1
+        invoke printf, addr ovejaiz2
+        invoke printf, addr ovejaiz3
+        invoke printf, addr ovejaiz4
+        invoke printf, addr ovejaiz5
+        
         jmp compw
     rights:
         invoke printf, addr space
-        invoke printf, addr dersheep
+        ;invoke printf, addr dersheep
+        invoke printf, addr ovejader1
+        invoke printf, addr ovejader2
+        invoke printf, addr ovejader3
+        invoke printf, addr ovejader4
+        invoke printf, addr ovejader5
         jmp compw
 
     compw:
@@ -345,11 +396,20 @@ actualstate proc                        ; Creador: Pablo Orellana Mostrar estado
 
         leftw:
             
-            invoke printf, addr izwolf
+            ;invoke printf, addr izwolf
+            invoke printf, addr loboiz1
+            invoke printf, addr loboiz2
+            invoke printf, addr loboiz3
+            invoke printf, addr loboiz4
+            invoke printf, addr loboiz5
             jmp compl
         rightw:
-            
-            invoke printf, addr derwolf
+            ;invoke printf, addr derwolf
+            invoke printf, addr loboder1
+            invoke printf, addr loboder2
+            invoke printf, addr loboder3
+            invoke printf, addr loboder4
+            invoke printf, addr loboder5
             jmp compl
 
     compl:
@@ -359,12 +419,19 @@ actualstate proc                        ; Creador: Pablo Orellana Mostrar estado
         jne rightl
     
         leftl:
-            
-            invoke printf, addr izlettuce
+            ;invoke printf, addr izlettuce
+            invoke printf, addr lechugaiz1
+            invoke printf, addr lechugaiz2
+            invoke printf, addr lechugaiz3
+            invoke printf, addr lechugaiz4
             jmp compp
         rightl:
             
-            invoke printf, addr derlettuce
+            ;invoke printf, addr derlettuce
+            invoke printf, addr lechugader1
+            invoke printf, addr lechugader2
+            invoke printf, addr lechugader3
+            invoke printf, addr lechugader4
             jmp compp
 
     compp:
