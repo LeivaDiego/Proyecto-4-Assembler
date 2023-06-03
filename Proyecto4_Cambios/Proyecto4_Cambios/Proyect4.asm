@@ -127,7 +127,7 @@ lechugader4   BYTE    "|                  ~~~~~~~~~~~    ~~~~~~~   ~~~~~~      ~
 
 
 
-again           BYTE    "|                          Volver a jugar?     1) Si       2) No                    |", 0Ah, 0
+again           BYTE    "|                     Volver a jugar?     1) Si       2) No                         |", 0Ah, 0
 
 instructions1	BYTE	"|                    Aqui podras ver las instrucciones del juego                    |", 0Ah, 0
 instructions2	BYTE	"|  Un pastor tiene que atravesar a la otra orilla de un rio con un lobo, una oveja  |", 0Ah, 0
@@ -301,7 +301,7 @@ main proc
         invoke printf, addr separator
         
     finished:
-
+        invoke printf, addr separator
 	.ENDIF
 
 
