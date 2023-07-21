@@ -1,0 +1,3 @@
+﻿  Assembling Proyect4.asm...
+Proyect4.asm(23): warning A4011: multiple .MODEL directives found : .MODEL ignored
+  Proyecto4_Cambios.vcxproj -> C:\Users\diego\Documents\UVG\5to Semestre\Organizacion de computadoras y Assembler\Proyecto-4-Assembler\Proyecto4_Cambios\Debug\Proyecto4_Cambios.exe

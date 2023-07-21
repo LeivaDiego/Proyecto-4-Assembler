@@ -1,0 +1,4 @@
+﻿  Assembling Proy4.asm...
+Proy4.asm(1): error A2044: invalid character in file
+Proy4.asm(24): warning A4011: multiple .MODEL directives found : .MODEL ignored
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\BuildCustomizations\masm.targets(70,5): error MSB3721: The command "ml.exe /c /nologo /Zi /Fo"Debug\Proy4.obj" /W3 /errorReport:prompt  /TaProy4.asm" exited with code 1.
